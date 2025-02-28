@@ -1,0 +1,7 @@
+kind: Record
+properties:
+  HotelCode: String
+  HotelLatitude: Number
+  HotelLongitude: Number
+  HotelName: String
+  HotelPhoto: String

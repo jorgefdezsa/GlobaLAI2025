@@ -1,0 +1,77 @@
+{
+  '$schema': "http://adaptivecards.io/schemas/adaptive-card.json",
+  type: "AdaptiveCard",
+  version: "1.5",
+  body: ForAll(ParseJSON(Topic.Hotels), 
+        {
+          type: "Container",
+		  selectAction: {
+			type: "Action.Submit",
+			title: "Select this hotel",
+			data: {
+          actionSubmitId: "SelectedHotel",
+          HotelCode: ThisRecord.code,
+          HotelName: ThisRecord.name,
+          HotelPhoto: ThisRecord.photo,
+          HotelLatitude: ThisRecord.latitude,
+          HotelLongitude: ThisRecord.longitude
+        }
+      },
+          separator: true,
+          spacing: "medium",
+          items: [
+            {
+              type: "ColumnSet",
+              columns: [
+                {
+                  type: "Column",
+                  width: "2",
+                  items: [
+                    {
+                      type: "TextBlock",
+                      text: Text(ThisRecord.name),
+                      weight: "Bolder",
+                      size: "Medium",
+                      spacing: "None",
+                      wrap: true,
+                      style: "heading"
+                    },
+                    {
+                      type: "TextBlock",
+                      text: Text(ThisRecord.zone),
+                      spacing: "None",
+                      wrap: true
+                    },
+                    {
+                      type: "TextBlock",
+                      text: Concatenate(Text(ThisRecord.category), " stars"),
+                      isSubtle: true,
+                      spacing: "None",
+                      wrap: true
+                    }
+                  ]
+                },
+                {
+                  type: "Column",
+                  width: "1",
+                  items: [
+                    {
+                      type: "Image",
+                      url: ThisRecord.photo,
+                      altText: "Hotel image"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              type: "TextBlock",
+              text: Left(Text(ThisRecord.description), 130),
+              size: "Small",
+              wrap: true,
+              maxLines: 3
+            }
+          ]          
+        }
+      )
+}
